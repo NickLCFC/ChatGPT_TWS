@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ODM 專案健康度儀表板</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>ODM 專案健康度儀表板</h1>
+      <div class="controls">
+        <label for="health-filter">健康度篩選：</label>
+        <select id="health-filter" aria-label="健康度篩選">
+          <option value="all">全部</option>
+          <option value="green">綠燈</option>
+          <option value="yellow">黃燈</option>
+          <option value="red">紅燈</option>
+        </select>
+        <button id="sort-updated-btn" type="button" aria-pressed="true">
+          更新日期排序：新 → 舊
+        </button>
+        <button id="add-project-btn" type="button">新增專案</button>
+      </div>
+    </header>
+
+    <section>
+      <ul id="project-list" class="project-list" aria-live="polite"></ul>
+    </section>
+  </main>
+
+  <div
+    id="project-modal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    hidden
+    inert
+  >
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2>新增專案</h2>
+        <button id="modal-close-btn" class="close-btn" type="button" aria-label="關閉">×</button>
+      </header>
+      <form id="project-form" class="modal-body">
+        <label for="project-name">專案名稱</label>
+        <input id="project-name" name="project-name" type="text" required />
+
+        <label for="project-health">健康度</label>
+        <select id="project-health" name="project-health" required>
+          <option value="green">綠燈</option>
+          <option value="yellow">黃燈</option>
+          <option value="red">紅燈</option>
+        </select>
+
+        <label for="project-updated">上次更新日期</label>
+        <input
+          id="project-updated"
+          name="project-updated"
+          type="date"
+          required
+        />
+
+        <label for="project-status">狀態說明</label>
+        <textarea id="project-status" name="project-status" rows="3" required></textarea>
+
+        <div class="modal-actions">
+          <button type="submit">新增</button>
+          <button type="button" id="modal-cancel-btn" class="secondary">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

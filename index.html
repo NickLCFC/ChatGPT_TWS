@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Common Travel Budget</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="page-header">
+        <div>
+          <h1>Common Travel Budget</h1>
+          <p>單頁式出差預算控管工具</p>
+        </div>
+        <div class="header-actions">
+          <button id="loadExcelBtn" class="secondary">Load from SharePoint Excel</button>
+          <button id="copyAllBtn">Copy All</button>
+        </div>
+      </header>
+
+      <section class="summary-card">
+        <h2>Summary</h2>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="label">Total Days</span>
+            <span id="totalDays" class="value">0</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Used Days</span>
+            <span id="usedDays" class="value">0</span>
+          </div>
+          <div class="summary-item" id="remainingDaysWrap">
+            <span class="label">Remaining Days</span>
+            <span id="remainingDays" class="value">0</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Last updated</span>
+            <span id="lastUpdated" class="value">-</span>
+          </div>
+        </div>
+        <p id="summaryMessage" class="hint"></p>
+      </section>
+
+      <section class="form-card">
+        <h2>新增申請</h2>
+        <p id="formError" class="form-error"></p>
+        <form id="recordForm" novalidate>
+          <div class="form-grid">
+            <label>
+              出差人名 applicant
+              <input type="text" id="applicant" />
+              <span class="field-error" id="applicantError"></span>
+            </label>
+            <label>
+              出差地點 location
+              <input type="text" id="location" />
+              <span class="field-error" id="locationError"></span>
+            </label>
+            <label>
+              出差天數 days
+              <div class="stepper">
+                <button type="button" id="daysMinus">-</button>
+                <input type="number" id="days" min="1" step="1" value="1" />
+                <button type="button" id="daysPlus">+</button>
+              </div>
+              <span class="field-error" id="daysError"></span>
+            </label>
+            <label>
+              一級組織 T1
+              <select id="t1">
+                <option value="">請選擇</option>
+              </select>
+              <span class="field-error" id="t1Error"></span>
+            </label>
+            <label>
+              二級組織 T2
+              <select id="t2">
+                <option value="">（空白 / HQ）</option>
+              </select>
+              <span class="field-error" id="t2Error"></span>
+            </label>
+            <label>
+              三級組織 T3
+              <select id="t3" disabled>
+                <option value="">請先選擇 T2</option>
+              </select>
+              <span class="field-error" id="t3Error"></span>
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="table-card">
+        <h2>Dashboard Records</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>applicant</th>
+                <th>location</th>
+                <th>days</th>
+                <th>t1</th>
+                <th>t2</th>
+                <th>t3</th>
+                <th>submitted_at</th>
+                <th>status</th>
+              </tr>
+            </thead>
+            <tbody id="recordsBody"></tbody>
+          </table>
+        </div>
+        <p id="emptyState" class="empty-state">目前尚無紀錄</p>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status"></div>
+
+    <script src="https://alcdn.msauth.net/browser/2.37.0/js/msal-browser.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
